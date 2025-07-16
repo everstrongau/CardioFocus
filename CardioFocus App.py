@@ -120,7 +120,7 @@ for i in range(5):
     """, unsafe_allow_html=True)
 
 # VO2max Estimator
-st.markdown("""<br><div class='big-font'>VO₂max calculator (3-minute step test)</div>""", unsafe_allow_html=True)
+st.markdown("""<div class='big-font'>VO₂max calculator<br>(3-minute step test)</div>""", unsafe_allow_html=True)
 gender = st.selectbox("Select your gender:", ["Male", "Female"])
 height = st.number_input("Enter your height (cm):", min_value=100, max_value=220, value=170, step=1, format="%d")
 weight = st.number_input("Enter your weight (kg):", min_value=30, max_value=200, value=70, step=1, format="%d")
