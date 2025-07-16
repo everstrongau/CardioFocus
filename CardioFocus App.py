@@ -23,6 +23,22 @@ st.markdown("""
         margin-bottom: 0.5em;
     }
 
+    .zone-box {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .left-box, .right-box {
+        flex: 1;
+        padding: 20px;
+        margin: 5px;
+        border-radius: 10px;
+        color: black;
+        font-weight: bold;
+        text-align: center;
+    }
+
     .main-title {
         background-color: #1a1a1a;
         padding: 20px;
@@ -41,32 +57,6 @@ st.markdown("""
 
     .main-title span.cardiofocus {
         color: white;
-    }
-
-    .zone-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 15px;
-    }
-
-    .zone-label {
-        width: 45%;
-        padding: 20px;
-        border-radius: 10px;
-        font-weight: bold;
-        color: black;
-        text-align: center;
-    }
-
-    .zone-output {
-        width: 45%;
-        padding: 20px;
-        border-radius: 10px;
-        background-color: white;
-        text-align: center;
-        font-weight: bold;
-        color: black;
     }
 
     input[type=number]::-webkit-inner-spin-button, 
@@ -92,7 +82,19 @@ st.markdown("""
 st.markdown('<div class="big-font">Heart Rate Zone Calculator</div>', unsafe_allow_html=True)
 age = st.number_input("Enter your age:", min_value=1, max_value=120, value=50, step=1, format="%d")
 
-if age:
+zone_labels = [
+    "ZONE 5<br>90–100% MaxHR",
+    "ZONE 4<br>80–90% MaxHR",
+    "ZONE 3<br>70–80% MaxHR",
+    "ZONE 2<br>60–70% MaxHR",
+    "ZONE 1<br>50–60% MaxHR"
+]
+
+zone_colors_left = ['#EB5757', '#F2994A', '#F2C94C', '#D8DC8D', '#B7DDB0']
+zone_colors_right = ['#FFCFCF', '#FFE4C2', '#FFF1BF', '#F9F9C5', '#EDFDF3']
+output_texts = [""] * 5
+
+if st.button("Calculate HR Zones"):
     hr_max = 220 - age
     zones = [
         (round(hr_max * 0.90), hr_max),
@@ -101,22 +103,21 @@ if age:
         (round(hr_max * 0.60), round(hr_max * 0.70)),
         (round(hr_max * 0.50), round(hr_max * 0.60))
     ]
-
-    zone_labels = [
-        "ZONE 5<br>90–100% MaxHR", "ZONE 4<br>80–90% MaxHR", "ZONE 3<br>70–80% MaxHR", "ZONE 2<br>60–70% MaxHR", "ZONE 1<br>50–60% MaxHR"
-    ]
-    zone_colors = ['#EB5757', '#F2994A', '#F2C94C', '#D8DC8D', '#B7DDB0']
-
-
-if st.button("Calculate HR Zones"):
-
     for i in range(5):
-        st.markdown(f"""
-            <div class="zone-row">
-                <div class="zone-label" style="background-color: {zone_colors[i]};">{zone_labels[i]}</div>
-                <div class="zone-output">{zones[i][0]}–{zones[i][1]} BPM</div>
+        output_texts[i] = f"{zones[i][0]}–{zones[i][1]} BPM"
+
+# Display side-by-side zone boxes
+for i in range(5):
+    st.markdown(f"""
+        <div class="zone-box">
+            <div class="left-box" style="background-color: {zone_colors_left[i]};">
+                <div style="font-size: 28px;">{zone_labels[i]}</div>
             </div>
-        """, unsafe_allow_html=True)
+            <div class="right-box" style="background-color: {zone_colors_right[i]};">
+                <div style="font-size: 28px;">{output_texts[i]}</div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
 
 # VO2max Estimator
 st.markdown("""<br><div class='big-font'>VO₂max calculator (3-minute step test)</div>""", unsafe_allow_html=True)
