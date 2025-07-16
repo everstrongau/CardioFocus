@@ -107,6 +107,9 @@ if age:
     ]
     zone_colors = ['#EB5757', '#F2994A', '#F2C94C', '#D8DC8D', '#B7DDB0']
 
+
+if st.button("Calculate HR Zones"):
+
     for i in range(5):
         st.markdown(f"""
             <div class="zone-row">
