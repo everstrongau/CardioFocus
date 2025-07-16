@@ -23,10 +23,6 @@ st.markdown("""
         margin-bottom: 0.5em;
     }
 
-    .zone-box {
-        margin-bottom: 10px;
-    }
-
     .main-title {
         background-color: #1a1a1a;
         padding: 20px;
@@ -45,6 +41,32 @@ st.markdown("""
 
     .main-title span.cardiofocus {
         color: white;
+    }
+
+    .zone-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+
+    .zone-label {
+        width: 45%;
+        padding: 20px;
+        border-radius: 10px;
+        font-weight: bold;
+        color: black;
+        text-align: center;
+    }
+
+    .zone-output {
+        width: 45%;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: white;
+        text-align: center;
+        font-weight: bold;
+        color: black;
     }
 
     input[type=number]::-webkit-inner-spin-button, 
@@ -81,14 +103,15 @@ if age:
     ]
 
     zone_labels = [
-        "Zone 5 – 90–100%", "Zone 4 – 80–90%", "Zone 3 – 70–80%", "Zone 2 – 60–70%", "Zone 1 – 50–60%"
+        "ZONE 5<br>90–100% MaxHR", "ZONE 4<br>80–90% MaxHR", "ZONE 3<br>70–80% MaxHR", "ZONE 2<br>60–70% MaxHR", "ZONE 1<br>50–60% MaxHR"
     ]
     zone_colors = ['#EB5757', '#F2994A', '#F2C94C', '#D8DC8D', '#B7DDB0']
 
     for i in range(5):
         st.markdown(f"""
-            <div class="zone-box" style='background-color: {zone_colors[i]}; padding: 10px; border-radius: 5px;'>
-                <strong style='color:black'>{zone_labels[i]}:</strong> <span style='color:black'>{zones[i][0]}–{zones[i][1]} BPM</span>
+            <div class="zone-row">
+                <div class="zone-label" style="background-color: {zone_colors[i]};">{zone_labels[i]}</div>
+                <div class="zone-output">{zones[i][0]}–{zones[i][1]} BPM</div>
             </div>
         """, unsafe_allow_html=True)
 
