@@ -126,11 +126,11 @@ height = st.number_input("Enter your height (cm):", min_value=100, max_value=220
 weight = st.number_input("Enter your weight (kg):", min_value=30, max_value=200, value=70, step=1, format="%d")
 recovery_hr = st.number_input("Enter your heart rate (1-minute post test):", min_value=40, max_value=200, value=100, step=1, format="%d")
 
-if st.button("Estimate VO₂max"):
+if st.button("Calculate VO₂max"):
     if gender == "Male":
         vo2max = 70.597 - 0.246 * age - 0.122 * weight - 0.265 * recovery_hr + 0.106 * height
     else:
         vo2max = 70.597 - 0.185 * age - 0.118 * weight - 0.218 * recovery_hr + 0.074 * height
 
-    st.success(f"Estimated VO₂max: {vo2max:.2f} ml/kg/min")
+    st.markdown(f"<div style='font-weight:bold; font-size:28px;'>Estimated VO₂max: {vo2max:.2f} ml/kg/min</div>", unsafe_allow_html=True)
 
